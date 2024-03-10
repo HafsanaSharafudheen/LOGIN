@@ -1,0 +1,35 @@
+.Header {
+    background-color: white;
+    color: #333; /* Text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-text {
+    color: #007bff; /* Set a beautiful color */
+    margin: 0;
+}
+
+.ListItems {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ListItems li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.ListItems li a {
+    color: #007bff; /* Set a beautiful color */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Add a smooth color transition */
+}
+
+.ListItems li a:hover {
+    color: #0056b3; /* Change color on hover */
+}
