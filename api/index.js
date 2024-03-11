@@ -1,25 +1,30 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import userRoutes from './routes/user.route.js'
-import authRoutes from './routes/user.route.js'
+import connectDB from './config/db.js';
+import userRoutes from './routes/user.route.js';
+import authRoutes from './routes/auth.route.js';
+import cors from 'cors'; 
 
 import dotenv from 'dotenv';
 dotenv.config();
-var c="mongodb+srv://hafsanasharafudheen:hafsanasharafudheen@mern.brrfyaa.mongodb.net"
-mongoose.connect(c).then(() => {
-    console.log('Connected to MongoDB');
-}).catch((err) => {
-    console.error('MongoDB connection error:', err);
+connectDB();
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.listen(3000, () => {
+    console.log("Server listening on port 3000");
 });
 
-
-
-
-const app=express();
-app.use(express.json());
-
-app.listen(3000,()=>{
-    console.log("server listening on port 3000");
-})
-app.use('/api/user',userRoutes);
-app.use('api/auth',authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+//set up a middleware for error handling
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal server error';
+    return res.status(statusCode).json({
+        success: false,
+        error: message,
+        statusCode: statusCode
+    });
+});

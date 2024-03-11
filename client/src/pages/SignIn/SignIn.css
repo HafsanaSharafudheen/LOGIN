@@ -1,0 +1,22 @@
+.signin-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .signin-heading {
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
+  .sign-up-link {
+    margin-top: 20px;
+  }
+  
