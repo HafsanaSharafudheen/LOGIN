@@ -1,12 +1,12 @@
 import express from 'express';
-import connectDB from './config/db.js';
+//import connectDB from './config/db.js';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cors from 'cors'; 
 
 import dotenv from 'dotenv';
 dotenv.config();
-connectDB();
+//connectDB();
 
 const app = express();
 app.use(express.json());

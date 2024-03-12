@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// user.model.js
+import mongoose from '../config/db.js';
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -14,8 +15,18 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
-}, { timestamps: true });
+    }, 
+    createdAt: {
+        type: Date, // Specify Date type for createdAt field
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date // Specify Date type for updatedAt field
+    },
+    profilePicture: {
+        type: String
+    },
+},{ timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 

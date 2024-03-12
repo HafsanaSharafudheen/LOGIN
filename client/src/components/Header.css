@@ -33,3 +33,10 @@
 .ListItems li a:hover {
     color: #0056b3; /* Change color on hover */
 }
+.ListItems img {
+    width: 40px; /* Adjust the width and height as needed */
+    height: 40px;
+    margin: 0px 0px -9px 12px;
+    border-radius: 50%; /* Makes the image round */
+    margin-right: 10px; /* Add some margin to separate the image from the text */
+  }
