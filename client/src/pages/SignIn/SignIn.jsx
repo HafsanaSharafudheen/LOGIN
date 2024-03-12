@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link ,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './SignIn.css';
+import { signInStart,signInSuccess,signInFailure } from '../../redux/user/userSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+ const {loading,error}=useSelector((state)=>state.user);
 const navigate=useNavigate();
+const dispatch=useDispatch();
 
   const handleChange = (e) => {
     setFormData(prevState => ({
@@ -18,29 +20,32 @@ const navigate=useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
+    dispatch(signInStart());
+  
     try {
       const res = await axios.post('http://localhost:3000/api/auth/signin', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-      setLoading(false);
-
+  
       if (res.data.success === false) {
-        setError('Invalid email or password');
-      } else {
-        navigate('/')
+        if (res.status === 401) {
+          dispatch(signInFailure('Incorrect email or password'));
+        } else {
+          dispatch(signInFailure(res.data.message)); // Dispatch failure action with error message
+        }
+        return
       }
+  
+      dispatch(signInSuccess(res.data));
+      navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError('Something went wrong');
+      dispatch(signInFailure(error.message)); // Dispatch failure action with error message
       console.error('Error:', error);
     }
   }
+  
 
   return (
     <div className="signin-container">

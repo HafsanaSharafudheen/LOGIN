@@ -6,12 +6,11 @@ import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
+
         <Route exact path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/sign-in' element={<SignIn />} />

@@ -47,7 +47,7 @@ const navigate=useNavigate();
         <button disabled={loading} type="submit">
   {loading ? 'Loading...' : 'Sign Up'}
 </button>
-        <p style={{ color: 'red' }}>{error && 'Something went wrong'}</p>
+        <p style={{ color: 'red' }}>{error ? error||'Something went wrong':""}</p>
       </form>
       <p className="sign-in-link">Already have an account? <Link to="/sign-in">Sign in</Link></p>
     </div>
