@@ -1,56 +1,62 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../axios/axios.js';
 import './SignIn.css';
-import { signInStart, signInSuccess, signInFailure, logout } from '../../redux/user/userSlice';
+import { signInSuccess, logout, setIsAdmin, signInStart } from '../../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function SignIn() {
-  const [formData, setFormData] = useState({});
-  const { loading, error, currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.user.currentUser);
+
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData(prevState => ({
       ...prevState,
       [e.target.id]: e.target.value
     }));
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(signInStart());
 
     try {
-      const res = await axios.post('http://localhost:3000/api/auth/signin', formData, {
+      const res = await api.post('/auth/signin', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
+      setLoading(false);
       if (res.data.success === false) {
-        if (res.status === 401) {
-          dispatch(signInFailure('Incorrect email or password'));
-        } else {
-          dispatch(signInFailure(res.data.message));
-        }
+        setError(true);
         return;
       }
 
-      dispatch(signInSuccess(res.data));
-      navigate('/');
+      dispatch(signInSuccess(formData));
+      dispatch(setIsAdmin(res.data.isAdmin));
+
+      if (res.data.isAdmin) {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      setLoading(false);
+      setError(true);
       console.error('Error:', error);
     }
-  }
+  };
 
   const handleLogout = () => {
     dispatch(logout());
-    // Redirect to the login page after logout
     navigate('/sign-in');
-  }
+  };
 
   return (
     <div className="signin-container">

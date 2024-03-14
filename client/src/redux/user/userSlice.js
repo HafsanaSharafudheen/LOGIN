@@ -3,13 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     currentUser: null,
     loading: false,
-    error: false
+    error: false,
+    isAdmin:false
 };
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        setIsAdmin: (state, action) => {
+            state.isAdmin = action.payload;
+          },
+         
         signInStart: (state) => {
             state.loading = true;
         },
@@ -30,5 +35,5 @@ const userSlice = createSlice({
     }
 });
 
-export const { signInStart, signInSuccess, signInFailure, logout } = userSlice.actions;
+export const {setIsAdmin, signInStart, signInSuccess, signInFailure, logout } = userSlice.actions;
 export default userSlice.reducer;

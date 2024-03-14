@@ -1,8 +1,7 @@
 import React, { useState, useRef   } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import api from  '../../axios/axios.js'
 import { useNavigate } from 'react-router-dom';
-
 import { logout } from '../../redux/user/userSlice';
 import './Profile.css';
 
@@ -28,7 +27,7 @@ function Profile() {
     const formData = new FormData();
     formData.append('profilePicture', selectedFile);
     try {
-      const response = await axios.post(`http://localhost:3000/api/auth/profile/${currentUser.id}`, formData, {
+      const response = await api.post(`/user/profile/${currentUser.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -42,14 +41,14 @@ function Profile() {
 
   const handleSignOut = () => {
     dispatch(logout());
-    navigate('/sign-in'); 
+    navigate('/'); 
   };
 
   const handleDeleteAccount = async () => {
     const confirmation = window.confirm('Are you sure you want to delete your account?')
     if (confirmation) {
       try {
-        const response = await axios.delete(`http://localhost:3000/api/auth/delete-account/${currentUser.id}`);
+        const response = await api.delete(`/user/delete-account/${currentUser.id}`);
   
         console.log(response.data.message);
   

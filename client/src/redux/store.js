@@ -5,18 +5,16 @@ import { persistStore } from 'redux-persist';
 import userReducer from '/src/redux/user/userSlice.js';
 
 const rootReducer = combineReducers({ user: userReducer });
-
 const persistConfig = {
-  key: 'root',
+  key: 'user',
   version: 1,
   storage,
-    whitelist: ['user'], 
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+ 
 });
-
 export const persistor = persistStore(store);

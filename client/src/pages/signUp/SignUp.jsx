@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {  signInSuccess,  } from '../../redux/user/userSlice';
+import api from '../../axios/axios.js';
 import './SignUp.css';
 
 function SignUp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-const navigate=useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       setLoading(true);
       setError(false);
 
-      const res = await axios.post('http://localhost:3000/api/auth/signup', formData, {
+      const res = await api.post('/auth/signup', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -29,13 +33,16 @@ const navigate=useNavigate();
         setError(true);
         return;
       } 
-      navigate('/')  
+      
+      dispatch(signInSuccess(formData));
+      
+      navigate('/');
     } catch (error) {
       setLoading(false);
       setError(true);
       console.error('Error:', error);
     }
-  }
+  };
 
   return (
     <div className="signup-container">
@@ -45,9 +52,9 @@ const navigate=useNavigate();
         <input onChange={handleChange} type="text" id="email" name="email" placeholder="Email" />
         <input onChange={handleChange} type="password" id="password" name="password" placeholder="Password" />
         <button disabled={loading} type="submit">
-  {loading ? 'Loading...' : 'Sign Up'}
-</button>
-        <p style={{ color: 'red' }}>{error ? error||'Something went wrong':""}</p>
+          {loading ? 'Loading...' : 'Sign Up'}
+        </button>
+        <p style={{ color: 'red' }}>{error ? (error.message || 'Something went wrong') : ''}</p>
       </form>
       <p className="sign-in-link">Already have an account? <Link to="/sign-in">Sign in</Link></p>
     </div>
