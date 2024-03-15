@@ -4,17 +4,13 @@ const initialState = {
     currentUser: null,
     loading: false,
     error: false,
-    isAdmin:false
+    isAdmin: false 
 };
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setIsAdmin(state, action) {
-            state.isAdmin = action.payload;
-          },
-         
         signInStart: (state) => {
             state.loading = true;
         },
@@ -22,6 +18,7 @@ const userSlice = createSlice({
             state.currentUser = action.payload;
             state.loading = false;
             state.error = false;
+            state.isAdmin = action.payload.isAdmin || false; 
         },
         signInFailure: (state, action) => {
             state.loading = false;
@@ -31,9 +28,13 @@ const userSlice = createSlice({
             state.currentUser = null;
             state.loading = false;
             state.error = false;
+            state.isAdmin = false; 
+        },
+        setIsAdmin: (state, action) => {
+            state.isAdmin = action.payload; 
         }
     }
 });
 
-export const {setIsAdmin, signInStart, signInSuccess, signInFailure, logout } = userSlice.actions;
+export const { signInStart, signInSuccess, signInFailure, logout, setIsAdmin } = userSlice.actions;
 export default userSlice.reducer;

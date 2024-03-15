@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../axios/axios.js';
 import './SignIn.css';
-import { signInSuccess, logout, setIsAdmin, signInStart } from '../../redux/user/userSlice';
+import { signInSuccess, logout, signInStart } from '../../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function SignIn() {
@@ -38,13 +38,13 @@ function SignIn() {
         return;
       }
 
-      dispatch(signInSuccess(formData));
+    dispatch(signInSuccess(res.data));
 
-      if (res.data.isAdmin) {
-        navigate('/dashboard');
-      } else {
-        navigate('/');
-      }
+    if (res.data.isAdmin) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
     } catch (error) {
       setLoading(false);
       setError(true);

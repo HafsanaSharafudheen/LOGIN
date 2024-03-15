@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import {  signInSuccess,  } from '../../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInSuccess, signInFailure,  } from '../../redux/user/userSlice';
 import api from '../../axios/axios.js';
 import './SignUp.css';
 
@@ -11,6 +11,7 @@ function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const isAdmin = useSelector(state => state.user.isAdmin);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -34,9 +35,12 @@ function SignUp() {
         return;
       } 
       
-      dispatch(signInSuccess(formData));
-      
-      navigate('/');
+      if(isAdmin){
+        navigate('/dashboard');
+      } else {
+        dispatch(signInSuccess(res.data));      
+        navigate('/');
+      }
     } catch (error) {
       setLoading(false);
       setError(true);

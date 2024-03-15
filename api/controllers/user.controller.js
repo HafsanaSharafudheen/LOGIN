@@ -9,7 +9,37 @@ export const fetchUsers=async (req,res)=>{
         res.status(500).json({ message: 'Internal Server Error' });
       }
 }
-   
+export const updateUser = async (req, res) => {
+    try {
+        const { _id } = req.params; // Extract user ID from URL parameters
+        const updatedUser = req.body; // Get updated user data from request body
+
+        // Update the user in the database
+        const user = await User.findByIdAndUpdate(_id, updatedUser, { new: true });
+
+        res.status(200).json({ message: "User updated successfully", user });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+export const deleteUser = async (req, res) => {
+    const userId = req.params._id; // Assuming the user ID is passed as a parameter in the request
+
+    try {
+        // Delete user from the database
+        await User.findByIdAndDelete(userId);
+
+        // Optionally, you can send a response indicating success
+        res.status(200).json({ message: 'User deleted successfully' });
+
+        
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 
 
 

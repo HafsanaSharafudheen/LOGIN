@@ -53,6 +53,7 @@
   }
   .profile-link{
     padding: 5rem;
+    /* padding-right: 20px; */
     cursor: pointer;
     color: blue; /* Or any color you prefer */
     margin-bottom: 10px;

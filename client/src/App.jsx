@@ -17,7 +17,7 @@ function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/profile' element={<Profile />} />
-        {isAdmin && <Route path='/dashboard' element={<Admindashboard/>} />}
+        {isAdmin && <Route path='/dashboard' element={<Admindashboard />} />}
       </Routes>
     </BrowserRouter>
   );

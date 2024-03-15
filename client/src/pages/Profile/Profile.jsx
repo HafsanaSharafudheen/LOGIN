@@ -91,7 +91,7 @@ function Profile() {
           <input type='password' id='password' placeholder='Password' />
           
           {/* Button to upload the selected file */}
-          <button onClick={handleFileUpload}>Upload </button>
+          <button type="button" onClick={handleFileUpload}>Upload </button>
         </div>
         <div>
          <span className="profile-link" onClick={handleDeleteAccount}>Delete Account</span>
