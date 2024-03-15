@@ -39,7 +39,6 @@ function SignIn() {
       }
 
       dispatch(signInSuccess(formData));
-      dispatch(setIsAdmin(res.data.isAdmin));
 
       if (res.data.isAdmin) {
         navigate('/dashboard');

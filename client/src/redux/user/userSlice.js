@@ -11,7 +11,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setIsAdmin: (state, action) => {
+        setIsAdmin(state, action) {
             state.isAdmin = action.payload;
           },
          
