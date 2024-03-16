@@ -83,3 +83,21 @@
 .buttons button:hover {
   background-color: #45a049; /* Darker green */
 }
+/* Styles for the logout button */
+.logout-button  {
+  width: 150px;
+  background-color: #B0E0E6;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #000; 
+  font-size: 16px; 
+  border: none; 
+  cursor: pointer;
+}
+
+
+ .create-user-button{
+  background-color: green;
+  color: white;
+  width: 150px;
+}

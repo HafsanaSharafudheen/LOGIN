@@ -44,22 +44,7 @@ function Profile() {
     navigate('/'); 
   };
 
-  const handleDeleteAccount = async () => {
-    const confirmation = window.confirm('Are you sure you want to delete your account?')
-    if (confirmation) {
-      try {
-        const response = await api.delete(`/user/delete-account/${currentUser.id}`);
-  
-        console.log(response.data.message);
-  
-        dispatch(logout());
-  
-        navigate('/sign-in');
-      } catch (error) {
-        console.error('Error deleting account:', error);
-      }
-    }
-  };
+ 
   
   // Function to trigger file input click
   const handleButtonClick = () => {
@@ -94,7 +79,6 @@ function Profile() {
           <button type="button" onClick={handleFileUpload}>Upload </button>
         </div>
         <div>
-         <span className="profile-link" onClick={handleDeleteAccount}>Delete Account</span>
             <span className="profile-link" onClick={handleSignOut}>Sign Out</span>
         </div>
       </div>

@@ -40,7 +40,9 @@ export const deleteUser = async (req, res) => {
     }
 };
 
-
+export const profileUpload=async(req,res)=>{
+    console.log(req.file);
+}
 
 
 

@@ -1,28 +1,39 @@
 import React from 'react';
 import Header from '../../components/Header';
 import './Home.css'; // Import CSS file for styling
-
+import instance from '../../axios/axios'
 function Home() {
   return (
     <div>
       <Header />
       <div className="home-container">
         <div className="welcome-section">
-          <h1>Welcome to Our Website!</h1>
-          <p>We're glad you're here. Feel free to explore and discover all the amazing content we have to offer.</p>
-          <p>Whether you're looking for information, entertainment, or inspiration, we've got you covered. Happy browsing!</p>
+          <h1>Welcome to Our Laptop Website!</h1>
+          <p>Explore our collection of high-quality laptops and find the perfect one for your needs.</p>
+          <p>Whether you're a student, a professional, or a gamer, we have a laptop that fits your lifestyle and budget.</p>
         </div>
         <div className="featured-section">
-          <h2>Featured Content</h2>
+          <h2>Featured Laptops</h2>
           <div className="featured-items">
-            {/* Dummy featured content */}
+            {/* Featured Dell laptop */}
             <div className="featured-item">
-              <h3>Featured Item 1</h3>
-              <p>Description of Featured Item 1</p>
+              <img src={instance.defaults.serverURL+ 'dell.webp'} style={{height:"200px"}} alt="Dell Laptop" />
+              <h3>Dell XPS 13</h3>
+              <p>Processor: Intel Core i7</p>
+              <p>RAM: 16GB</p>
+              <p>Storage: 512GB SSD</p>
+              <p>Price: $1,299</p>
+              <button>View Details</button>
             </div>
+            {/* Featured Apple laptop */}
             <div className="featured-item">
-              <h3>Featured Item 2</h3>
-              <p>Description of Featured Item 2</p>
+              <img src={instance.defaults.serverURL+ 'apple.jpeg'} style={{height:"200px"}} alt="Apple MacBook" />
+              <h3>Apple MacBook Pro 13-inch</h3>
+              <p>Processor: Apple M1 Chip</p>
+              <p>RAM: 8GB</p>
+              <p>Storage: 256GB SSD</p>
+              <p>Price: $1,299</p>
+              <button>View Details</button>
             </div>
           </div>
         </div>

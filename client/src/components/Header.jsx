@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <div className="Header">
-      <h1 className="welcome-text">Auth App</h1>
+      <h1 className="welcome-text">LapWorld</h1>
       <ul className="ListItems">
         <li>
           <Link to='/'>

@@ -16,6 +16,8 @@ app.listen(3000, () => {
     console.log("Server listening on port 3000");
 });
 
+app.use(express.static('public'));
+
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 //set up a middleware for error handling

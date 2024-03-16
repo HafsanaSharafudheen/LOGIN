@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import api from '../../axios/axios.js';
 import './Admindashboard.css';
+import { logout } from '../../redux/user/userSlice'; // Import the logout action
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editedUser, setEditedUser] = useState(null);
+  const dispatch=useDispatch();
 const navigate=useNavigate();
   useEffect(() => {
     fetchUsers();
@@ -63,11 +66,16 @@ const navigate=useNavigate();
 const handleCreateUser=async()=>{
   navigate('/sign-up'); 
 }
+const handleLogout=async()=>{
+  dispatch(logout());
+  navigate('/sign-in'); 
+}
 
   return (
     <div className="admin-dashboard">
       <h2>User Details</h2>
-      <button onClick={handleCreateUser}>Create User</button> 
+      <button onClick={handleLogout} className="logout-button">Logout</button>
+<button onClick={handleCreateUser} className="create-user-button">Create User</button>
 
       <table>
         <thead>
