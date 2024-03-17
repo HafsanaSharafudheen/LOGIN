@@ -1,5 +1,5 @@
 import User from '../models/user.model.js'; 
-
+import ObjectId from 'mongoose'
 export const fetchUsers=async (req,res)=>{
     try {
         const users = await User.find();
@@ -38,11 +38,35 @@ export const deleteUser = async (req, res) => {
         console.error('Error deleting user:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+}
+
+
+export const profileUpload = async (req, res) => {
+    console.log("profileUpload");
+    console.log(req.file);
+    console.log(req.params._id, '.........id');
+
+    try {
+        const userId = req.params._id;
+        // Update the user's profile image
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { profilePicture: req.file.filename }, // Set the profileImage field to the new filename
+            { new: true } // Return the updated user document
+        );
+        console.log(updatedUser,"updatedUser")
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json({ message: "Profile image updated successfully", user: updatedUser });
+    } catch (error) {
+        console.error("Error uploading profile image:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
 };
 
-export const profileUpload=async(req,res)=>{
-    console.log(req.file);
-}
 
 
 

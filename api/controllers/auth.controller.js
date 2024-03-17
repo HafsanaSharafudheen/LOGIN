@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
 
 
 export const signup = async (req, res, next) => {
@@ -36,13 +37,22 @@ export const signin = async (req, res, next) => {
             return res.status(401).json({ message: "Wrong credentials" });
         }
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-        //to hide the password,after checking remove the valid user password.
-        const {password:hashedPassword,...rest} = validUser._doc;
-        const expiryDate=new Date(Date.now()+3600000)
-        res.cookie('access_token', token, { httpOnly: true ,expires :expiryDate}).status(200).json(rest);
-
+        
+        const expiryDate = new Date(Date.now() + 3600000);
+        
+        const cookieOptions = {
+            httpOnly: false,
+            secure: true,
+                sameSite: 'Strict',
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+    
+        };
+        console.log(token,"...................token")  
+        res.cookie('access_token', token, cookieOptions);
+        validUser.password ="";
+        res.status(200).json({ message: "Authentication successful", user: validUser });
+        
     } catch (error) {
         next(error);
     }
 };
-
