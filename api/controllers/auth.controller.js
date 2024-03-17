@@ -47,11 +47,18 @@ export const signin = async (req, res, next) => {
             maxAge: 30 * 24 * 60 * 60 * 1000,
     
         };
+<<<<<<< HEAD
         console.log(token,"...................token")  
         res.cookie('access_token', token, cookieOptions);
         validUser.password ="";
         res.status(200).json({ message: "Authentication successful", user: validUser });
         
+=======
+      console.log(token,"...................token")  
+        res.cookie('access_token', token, cookieOptions);
+        
+        res.status(200).json({ message: "Authentication successful", user: validUser });
+>>>>>>> 527880ad4e985b4907fcc6e405e6dc2d7a577e10
     } catch (error) {
         next(error);
     }

@@ -48,6 +48,10 @@ export const profileUpload = async (req, res) => {
 
     try {
         const userId = req.params._id;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 527880ad4e985b4907fcc6e405e6dc2d7a577e10
         // Update the user's profile image
         const updatedUser = await User.findByIdAndUpdate(
             userId,

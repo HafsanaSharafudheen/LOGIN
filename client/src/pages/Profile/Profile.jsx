@@ -28,12 +28,23 @@ function Profile() {
     const formData = new FormData();
     formData.append('profilePicture', selectedFile);
     try {
+<<<<<<< HEAD
         const response = await api.post(`/user/profile/${currentUser._id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'          
           }
         });
         await dispatch(signInSuccess(response.data.user));    
+=======
+
+      const response = await api.post(`/user/profile/${currentUser.user._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+       await dispatch(signInSuccess(response.data));
+    
+>>>>>>> 527880ad4e985b4907fcc6e405e6dc2d7a577e10
       console.log('Profile picture uploaded successfully');
       console.log(response.data);
 
