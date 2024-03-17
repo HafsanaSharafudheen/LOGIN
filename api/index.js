@@ -7,16 +7,22 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv';
 dotenv.config();
 //connectDB();
-
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.listen(3000, () => {
     console.log("Server listening on port 3000");
 });
 
 app.use(express.static('public'));
+app.use(express.static('uploads'));
+
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);

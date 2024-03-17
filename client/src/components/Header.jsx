@@ -2,6 +2,8 @@ import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import instance from '../axios/axios'
+
 
 function Header() {
   const { currentUser } = useSelector(state => state.user);
@@ -24,7 +26,7 @@ function Header() {
         <li>
           <Link to={currentUser ? '/profile' : '/sign-in'}>
             {currentUser ? (
-              <img src={currentUser.profilePicture || defaultProfilePicture} alt="Profile" />
+              <img src={instance.defaults.serverURL+currentUser.profilePicture || defaultProfilePicture} alt="Profile" />
             ) : (
               'Sign In'
             )}

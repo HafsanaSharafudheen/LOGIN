@@ -32,7 +32,9 @@ const userSlice = createSlice({
         },
         setIsAdmin: (state, action) => {
             state.isAdmin = action.payload; 
-        }
+        },
+       
+      
     }
 });
 

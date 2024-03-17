@@ -19,27 +19,23 @@ function SignIn() {
       ...prevState,
       [e.target.id]: e.target.value
     }));
-  };
-
+  };  
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(signInStart());
-
     try {
-      const res = await api.post('/auth/signin', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
+      const res = await api.post('/auth/signin', formData, 
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        { withCredentials: true }
+      );
       setLoading(false);
       if (res.data.success === false) {
         setError(true);
         return;
       }
-
     dispatch(signInSuccess(res.data));
-
     if (res.data.isAdmin) {
       navigate('/dashboard');
     } else {

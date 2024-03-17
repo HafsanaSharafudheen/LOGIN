@@ -2,8 +2,9 @@ import React, { useState, useRef   } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import api from  '../../axios/axios.js'
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../redux/user/userSlice';
+import { logout, signInSuccess } from '../../redux/user/userSlice';
 import './Profile.css';
+import instance from '../../axios/axios'
 
 function Profile() {
   const [selectedFile, setSelectedFile] = useState(null); 
@@ -27,16 +28,24 @@ function Profile() {
     const formData = new FormData();
     formData.append('profilePicture', selectedFile);
     try {
-      const response = await api.post(`/user/profile/${currentUser.id}`, formData, {
+
+      const response = await api.post(`/user/profile/${currentUser.user._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+       await dispatch(signInSuccess(response.data));
+    
+      console.log('Profile picture uploaded successfully');
       console.log(response.data);
+
+      navigate('/');
     } catch (error) {
       console.error('Error uploading profile picture:', error);
     }
+
+
+    
   };
 
   const handleSignOut = () => {
@@ -63,13 +72,16 @@ function Profile() {
           accept="image/*"
           onChange={handleFileSelect}
         />
-        {/* Display selected file or default profile picture */}
-        <img
-          className="profile-picture"
-          src={selectedFile ? URL.createObjectURL(selectedFile) : currentUser.profilePicture || defaultProfilePicture}
-          alt="Profile"
-          onClick={handleButtonClick} 
-        />
+      <div>
+        {currentUser.profilePicture ? (
+          <img src={selectedFile ? URL.createObjectURL(selectedFile) : instance.defaults.serverURL+ currentUser.profilePicture} alt="Profile"
+          onClick={handleButtonClick}  />
+        ) : (
+          <img src={selectedFile ? URL.createObjectURL(selectedFile) : defaultProfilePicture} alt="Default Profile" 
+          onClick={handleButtonClick} />
+        )}
+      </div>
+
         <div>
           <input type='text' id='username' placeholder='Username' defaultValue={currentUser.username} />
           <input type='text' id='email' placeholder='Email' defaultValue={currentUser.email} />
