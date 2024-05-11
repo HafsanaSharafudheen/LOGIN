@@ -35,13 +35,8 @@ function SignIn() {
         setError(true);
         return;
       }
-<<<<<<< HEAD
     dispatch(signInSuccess(res.data.user));
     if (res.data.user.isAdmin) {
-=======
-    dispatch(signInSuccess(res.data));
-    if (res.data.isAdmin) {
->>>>>>> 527880ad4e985b4907fcc6e405e6dc2d7a577e10
       navigate('/dashboard');
     } else {
       navigate('/');

@@ -35,7 +35,6 @@ const navigate=useNavigate();
   };
 
   const handleUpdate = async () => {
-    // Update user data in the database
     try {
       await api.post(`/user/updateUser/${editedUser._id}`, editedUser);
       console.log('Update user:', editedUser);
